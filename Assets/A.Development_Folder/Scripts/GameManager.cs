@@ -1,7 +1,8 @@
 using System;
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public int score = 0;
     const int MAX_SCORE = 9999999;
+    const int ATTEMPT_POINTS = 10000;
+    const int BASE_ATTEMPTS = 4; // # of attempts which give no points
     public int attempts = 1;
     public int level = 0;
     public Timer GameTimer;
@@ -17,6 +20,9 @@ public class GameManager : MonoBehaviour
     public event Action<int> OnLevelUpdate;
     public event Action<float> OnTimeUpdate;
     public event Action<int> OnAttemptsUpdate;
+
+    [SerializeField] public TMP_Text bonusPointsBox;
+    public GameObject debugMenu;
 
     public void Awake()
     {
@@ -29,7 +35,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        GameTimer = new Timer();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,6 +47,16 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         GameTimer.Tick(Time.deltaTime);
+        OnTimeUpdate?.Invoke(GameTimer.GameTime);
+
+        #if UNITY_EDITOR
+        if (Input.GetKey(KeyCode.LeftAlt) &&
+        Input.GetKey(KeyCode.LeftShift) &&
+        Input.GetKeyDown(KeyCode.D))
+        {
+            debugMenu.SetActive(!debugMenu.activeSelf);
+        }
+        #endif
     }
 
     public void AddScore(int points)
@@ -78,6 +93,40 @@ public class GameManager : MonoBehaviour
     {
         attempts = 1;
         OnAttemptsUpdate?.Invoke(attempts);
+    }
+
+    public void CalculateAttemptsPoints()
+    {
+        StartCoroutine(AttemptsToPoints());
+    }
+
+    private IEnumerator AttemptsToPoints()
+    {
+        int totalPoints = ATTEMPT_POINTS * (BASE_ATTEMPTS - attempts);
+        attempts = 0;
+        OnAttemptsUpdate?.Invoke(attempts);
+        bonusPointsBox.gameObject.SetActive(true);
+        Color bonusColour;
+        string sign = "+";
+        if (totalPoints > 0)
+        {
+            bonusColour = Color.green;
+        }
+        else if (totalPoints < 0)
+        {
+            bonusColour = Color.red;
+            sign = "";
+        }
+        else
+        {
+            bonusColour = Color.white;
+        }
+        bonusPointsBox.color = bonusColour;
+        bonusPointsBox.text = $"{sign}{totalPoints}";
+        yield return new WaitForSecondsRealtime(0.75f);
+        AddScore(totalPoints);
+        yield return new WaitForSecondsRealtime(0.50f);
+        bonusPointsBox.gameObject.SetActive(false);
     }
 
 }

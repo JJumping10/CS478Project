@@ -1,8 +1,11 @@
-public class Timer
+using System.Collections;
+using UnityEngine;
+
+public class Timer : MonoBehaviour
 {
     public float GameTime { get; private set; }
     public bool IsRunning { get; private set; }
-    const int BASE_POINTS = 1000000; // points for completing the level in one minute
+    const int BASE_POINTS = 60000000; // points for completing the level in one second
 
     public Timer()
     {
@@ -13,6 +16,7 @@ public class Timer
     public void Start()
     {
         IsRunning = true;
+        Debug.Log("GameTime: " + GameTime);
     }
     public void Stop()
     {
@@ -21,17 +25,29 @@ public class Timer
 
     public void Reset()
     {
+        IsRunning = false;
         GameTime = 0;
     }
 
-    public void ConvertToPoints()
+    public void AddTime(float newTime)
+    {
+        GameTime += newTime;
+    }
+
+    public void CalculatePoints()
+    {
+        StartCoroutine(TimeToPoints());
+    }
+
+    private IEnumerator TimeToPoints()
     {
         IsRunning = false;
-        float playerTime = GameTime;
+        float playerTime = Mathf.Max(0f,Mathf.FloorToInt(GameTime));
         while (GameTime > 0)
         {
-            GameTime -= 1;
-            GameManager.instance.AddScore((int)(BASE_POINTS*60/(playerTime*playerTime)));
+            GameTime -= Mathf.Min(1, GameTime);
+            GameManager.instance.AddScore((int)(BASE_POINTS/(playerTime*playerTime)));
+            yield return new WaitForSecondsRealtime(0.033f);
         }
 
     }

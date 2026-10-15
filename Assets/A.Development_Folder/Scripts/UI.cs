@@ -18,7 +18,7 @@ public class UI : MonoBehaviour
         gameManager.OnLevelUpdate += UpdateLevel;
         UpdateLevel(gameManager.score);
         gameManager.OnAttemptsUpdate += UpdateAttempts;
-        UpdateAttempts(gameManager.attempts);
+        gameManager.ResetAttempts();
         gameManager.OnTimeUpdate += UpdateTime;
         UpdateTime(gameManager.GameTimer.GameTime);
     }
