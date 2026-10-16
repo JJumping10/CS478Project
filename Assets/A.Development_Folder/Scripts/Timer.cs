@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
     public bool IsRunning { get; private set; }
     const int BASE_POINTS = 60000000; // points for completing the level in one second
 
-    public Timer()
+    public void Awake()
     {
         GameTime = 0;
         IsRunning = false;
@@ -16,7 +16,6 @@ public class Timer : MonoBehaviour
     public void Start()
     {
         IsRunning = true;
-        Debug.Log("GameTime: " + GameTime);
     }
     public void Stop()
     {
@@ -46,7 +45,7 @@ public class Timer : MonoBehaviour
         while (GameTime > 0)
         {
             GameTime -= Mathf.Min(1, GameTime);
-            GameManager.instance.AddScore((int)(BASE_POINTS/(playerTime*playerTime)));
+            GameManager.instance.AddScore(BASE_POINTS/(playerTime*playerTime));
             yield return new WaitForSecondsRealtime(0.033f);
         }
 

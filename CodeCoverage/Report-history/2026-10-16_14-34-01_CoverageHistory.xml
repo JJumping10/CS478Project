@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2026-10-16_14-34-01" tag="">
+  <assembly name="Scripts">
+    <class name="GameManager" coveredlines="83" coverablelines="90" totallines="154" coveredbranches="0" totalbranches="0" />
+    <class name="Timer" coveredlines="38" coverablelines="38" totallines="61" coveredbranches="0" totalbranches="0" />
+    <class name="UI" coveredlines="27" coverablelines="27" totallines="51" coveredbranches="0" totalbranches="0" />
+  </assembly>
+</coverage>

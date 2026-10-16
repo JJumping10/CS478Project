@@ -16,7 +16,7 @@ public class UI : MonoBehaviour
         gameManager.OnScoreUpdate += UpdateScore;
         UpdateScore(gameManager.score);
         gameManager.OnLevelUpdate += UpdateLevel;
-        UpdateLevel(gameManager.score);
+        UpdateLevel(gameManager.level);
         gameManager.OnAttemptsUpdate += UpdateAttempts;
         gameManager.ResetAttempts();
         gameManager.OnTimeUpdate += UpdateTime;
@@ -29,9 +29,9 @@ public class UI : MonoBehaviour
         
     }
 
-    private void UpdateScore(int newScore)
+    private void UpdateScore(float newScore)
     {
-        score.text = $"{newScore:0000000}";
+        score.text = $"{Mathf.RoundToInt(newScore):0000000}";
     }
     private void UpdateLevel(int levelNumber)
     {

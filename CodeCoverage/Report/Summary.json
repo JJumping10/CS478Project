@@ -1,0 +1,26 @@
+{
+  "summary": {
+    "generatedon": "2026-10-16T19:34:02Z",
+    "parser": "MultiReportParser (2x OpenCoverParser)",
+    "assemblies": 1,
+    "classes": 3,
+    "files": 3,
+    "coveredlines": 148,
+    "uncoveredlines": 7,
+    "coverablelines": 155,
+    "totallines": 266,
+    "linecoverage": 95.4,
+    "coveredbranches": 0,
+    "totalbranches": 0,
+    "coveredmethods": 29,
+    "totalmethods": 29,
+    "methodcoverage": 100
+ },
+  "coverage": {
+    "assemblies": [
+      { "name": "Scripts", "classes": 3, "coverage": 95.4, "coveredlines": 148, "coverablelines": 155, "totallines": 266, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 29, "totalmethods": 29, "classesinassembly": [
+        { "name": "GameManager", "coverage": 92.2, "coveredlines": 83, "coverablelines": 90, "totallines": 154, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 11, "totalmethods": 11 },
+        { "name": "Timer", "coverage": 100, "coveredlines": 38, "coverablelines": 38, "totallines": 61, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 12, "totalmethods": 12 },
+        { "name": "UI", "coverage": 100, "coveredlines": 27, "coverablelines": 27, "totallines": 51, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 6, "totalmethods": 6 } ] } ]
+  }
+}

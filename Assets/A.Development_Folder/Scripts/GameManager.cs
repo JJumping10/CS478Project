@@ -3,20 +3,25 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using NUnit.Framework;
 
 public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
-    public int score = 0;
-    const int MAX_SCORE = 9999999;
-    const int ATTEMPT_POINTS = 10000;
-    const int BASE_ATTEMPTS = 4; // # of attempts which give no points
-    public int attempts = 1;
+    public float score = 0;
+    public const int MAX_SCORE = 9999999;
+    public const int BASE_ATTEMPTS = 4; // # of attempts which give no points
+
     public int level = 0;
+    public const int MAX_LEVEL = 5;
+
+    public int attempts = 1;
+    public const int ATTEMPT_POINTS = 10000;
+
     public Timer GameTimer;
 
-    public event Action<int> OnScoreUpdate;
+    public event Action<float> OnScoreUpdate;
     public event Action<int> OnLevelUpdate;
     public event Action<float> OnTimeUpdate;
     public event Action<int> OnAttemptsUpdate;
@@ -26,15 +31,27 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
+Debug.Log($"Awake on {gameObject.name}, ID: {GetEntityId()}");
         if (instance == null)
         {
             instance = this;
         }
         else
         {
+Debug.Log("Duplicate GameManager destroyed");
             Destroy(gameObject);
+            return;
         }
         DontDestroyOnLoad(gameObject);
+Debug.Log($"GameTimer assigned: {GameTimer != null}");
+    }
+
+    private void OnDestroy()
+    {
+        if (instance = this)
+        {
+            instance = null;
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -46,6 +63,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+//Debug.Log("GameManager Update started");
+//Debug.Log($"GameTimer is null: {GameTimer == null}");
         GameTimer.Tick(Time.deltaTime);
         OnTimeUpdate?.Invoke(GameTimer.GameTime);
 
@@ -59,10 +78,10 @@ public class GameManager : MonoBehaviour
         #endif
     }
 
-    public void AddScore(int points)
+    public void AddScore(float points)
     {
         // score cannot be negative or more than the UI can display
-        int newScore = score + points;
+        float newScore = score + points;
         if (newScore >= 0 && newScore <= MAX_SCORE)
         {
             score = newScore;
@@ -79,8 +98,11 @@ public class GameManager : MonoBehaviour
 
     public void SetLevel(int levelNumber)
     {
-        level = levelNumber;
-        OnLevelUpdate?.Invoke(levelNumber);
+        if (levelNumber >= 1 && levelNumber <= MAX_LEVEL)
+        {
+            level = levelNumber;
+            OnLevelUpdate?.Invoke(levelNumber);
+        }
     }
 
     public void AddAttempt()
@@ -95,7 +117,7 @@ public class GameManager : MonoBehaviour
         OnAttemptsUpdate?.Invoke(attempts);
     }
 
-    public void CalculateAttemptsPoints()
+    public void AddAttemptsPoints()
     {
         StartCoroutine(AttemptsToPoints());
     }

@@ -2138,7 +2138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   score: 0
-  attempts: 0
+  attempts: 1
   level: 0
   GameTimer: {fileID: 617334422}
   bonusPointsBox: {fileID: 941921622}
