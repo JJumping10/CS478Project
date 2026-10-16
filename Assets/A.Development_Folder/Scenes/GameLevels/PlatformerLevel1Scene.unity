@@ -2795,7 +2795,7 @@ MonoBehaviour:
   - {fileID: 1493280591}
   - {fileID: 375631242}
   - {fileID: 966566612}
-  - {fileID: 0}
+  - {fileID: 828609369084121531, guid: f5bf59210f55aa54fbea6852c55a2249, type: 3}
   aimingLine: {fileID: 736288378}
   aimLineLength: 6
 --- !u!114 &1770313022
