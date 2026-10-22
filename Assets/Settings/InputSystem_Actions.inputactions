@@ -93,7 +93,7 @@
                     "name": "",
                     "id": "7d64b6ae-5933-487c-97fa-f8026c2328d0",
                     "path": "<Keyboard>/1",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Select Pistol",

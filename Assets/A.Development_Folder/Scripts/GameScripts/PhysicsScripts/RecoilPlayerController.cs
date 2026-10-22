@@ -8,78 +8,29 @@ public class RecoilPlayerController : MonoBehaviour
     private Camera mainCamera;
     public ItemManager itemManager;
 
-    public int SelectedWeapon = 0;
-    public const int NUM_WEAPONS = 5;
+    public ItemManager.Weapon currentWeapon;
     public Vector2 AimDirection = Vector2.right;
 
     private Vector2 recoilForce;
 
+    // create weapons
+    public GameObject grenadePrefab;
+
+    // weapon actions
     [SerializeField] private InputActionReference selectPistol;
     [SerializeField] private InputActionReference selectShotgun;
     [SerializeField] private InputActionReference selectRifle;
     [SerializeField] private InputActionReference selectSniper;
     [SerializeField] private InputActionReference selectGrenade;
-
-    [System.Serializable]
-    public class Weapon
-    {
-        public string name;
-        public float recoil;
-        public float cooldown;
-        public float magSize;
-        public float reloadTime;
-        public float ammo;
-        public InputActionReference select;
-        public float spread;
-        public float recoilSpread;
-        public float shotRange;
-        public int bullets;
-        public float nextShot;
-        public float reloadEnd;
-
-        public Weapon(string name, float recoil, float cooldown, float magSize, float ammo, float reloadTime, InputActionReference select,
-                      float spread, float recoilSpread, float shotRange, int bullets)
-        {
-            this.name = name;
-            this.recoil = recoil;
-            this.cooldown = cooldown;
-            this.magSize = magSize;
-            this.ammo = ammo;
-            this.reloadTime = reloadTime;
-            this.select = select;
-            this.spread = spread;
-            this.recoilSpread = recoilSpread;
-            this.shotRange = shotRange;
-            this.bullets = bullets;
-            this.nextShot = 0f;
-            this.reloadEnd = 0f;
-        }
-    }
-
-    // create weapons
-    public Weapon[] weapons = new Weapon[NUM_WEAPONS];
-    public GameObject grenadePrefab;
-
-    // weapon actions
     [SerializeField] private InputActionReference reload;
     [SerializeField] private InputActionReference fire;
 
-
     void Start()
     {
-        weapons[0] = new Weapon("Pistol", 4.5f, 0.22f, float.PositiveInfinity, float.PositiveInfinity, 0f, selectPistol, 0f, 0f, 30f, 1);
-        weapons[1] = new Weapon("Shotgun", 12f, 0.9f, 5f, 5f, 1.7f, selectShotgun, 12f, 6f, 30f, 7);
-        weapons[2] = new Weapon("Rifle", 2.2f, 0.13f, 18f, 18f, 1.9f, selectRifle, 1.5f, 1f, 30f, 1);
-        weapons[3] = new Weapon("Sniper", 15f, 1.5f, 3f, 3f, 2.5f, selectSniper, 0f, 0f, 100f, 1);
-        weapons[4] = new Weapon("Grenade", 4f, 0.7f, 4f, 4f, 2.2f, selectGrenade, 0f, 0f, 30f, 1);
-
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
+        currentWeapon = ItemManager.GetCurrentWeapon(0);
 
-        for(int i = 0; i < NUM_WEAPONS; i++)
-        {
-            weapons[i].select.action.Enable();
-        }
         reload.action.Enable();
         fire.action.Enable();
     }
@@ -94,19 +45,28 @@ public class RecoilPlayerController : MonoBehaviour
 
         // Switch weapons
         if (selectPistol.action.WasPressedThisFrame())
-            SelectedWeapon = 0;
-
+        {
+            currentWeapon = ItemManager.GetCurrentWeapon(0);
+        }
         if (selectShotgun.action.WasPressedThisFrame())
-            SelectedWeapon = 1;
+        {
+            currentWeapon = ItemManager.GetCurrentWeapon(1);
+        }
 
         if (selectRifle.action.WasPressedThisFrame())
-            SelectedWeapon = 2;
+        {
+            currentWeapon = ItemManager.GetCurrentWeapon(2);
+        }
 
         if (selectSniper.action.WasPressedThisFrame())
-            SelectedWeapon = 3;
+        {
+            currentWeapon = ItemManager.GetCurrentWeapon(3);
+        }
 
         if (selectGrenade.action.WasPressedThisFrame())
-            SelectedWeapon = 4;
+        {
+            currentWeapon = ItemManager.GetCurrentWeapon(4);
+        }
 
         // Aim toward mouse
         Vector3 mousePos = Mouse.current.position.ReadValue();
@@ -128,7 +88,7 @@ public class RecoilPlayerController : MonoBehaviour
         CheckReloads();
 
         // Rifle is automatic, other weapons are single click
-        if (SelectedWeapon == 2)
+        if (currentWeapon.name == "Rifle")
         {
             if (fire.action.IsPressed())
                 Shoot();
@@ -155,22 +115,23 @@ public class RecoilPlayerController : MonoBehaviour
     void Shoot()
     {
         // Check cooldown and reload
-        if (Time.time < weapons[SelectedWeapon].nextShot)
+        if (Time.time < currentWeapon.nextShot)
             return;
 
-        if (weapons[SelectedWeapon].reloadEnd > 0)
+        if (currentWeapon.reloadEnd > 0)
             return;
 
-        if (weapons[SelectedWeapon].ammo <= 0)
+        if (currentWeapon.ammo <= 0)
         {
             Reload();
             return;
         }
-        weapons[SelectedWeapon].ammo--;
+        currentWeapon.ammo--;
+        currentWeapon.UpdateAmmoDisplay();
 
 
         // Grenade
-        if (SelectedWeapon == 4)
+        if (currentWeapon.name == "Grenade")
         {
             if (grenadePrefab == null)
             {
@@ -186,18 +147,18 @@ public class RecoilPlayerController : MonoBehaviour
         }
 
         // Set the cooldown
-        weapons[SelectedWeapon].nextShot = Time.time + weapons[SelectedWeapon].cooldown;
+        currentWeapon.nextShot = Time.time + currentWeapon.cooldown;
 
         // Recoil pushes the player away from the shot
-        float recoilAngle = Random.Range(-weapons[SelectedWeapon].recoilSpread, weapons[SelectedWeapon].recoilSpread);
+        float recoilAngle = Random.Range(-currentWeapon.recoilSpread, currentWeapon.recoilSpread);
 
         Vector2 pushDirection =
             Quaternion.Euler(0, 0, recoilAngle) * AimDirection;
 
-        recoilForce -= pushDirection * weapons[SelectedWeapon].recoil;
+        recoilForce -= pushDirection * currentWeapon.recoil;
 
         // Grenades are physical projectiles
-        if (SelectedWeapon == 4)
+        if (currentWeapon.name == "Grenade")
         {
             Vector2 spawnPosition = rb.position + AimDirection * 0.9f;
 
@@ -221,9 +182,9 @@ public class RecoilPlayerController : MonoBehaviour
         // Other weapons shoot instantly using raycasts
         Vector2 muzzle = rb.position + AimDirection * 0.7f;
 
-        for (int i = 0; i < weapons[SelectedWeapon].bullets; i++)
+        for (int i = 0; i < currentWeapon.bullets; i++)
         {
-            float angle = Random.Range(-weapons[SelectedWeapon].spread, weapons[SelectedWeapon].spread);
+            float angle = Random.Range(-currentWeapon.spread, currentWeapon.spread);
 
             Vector2 bulletDirection =
                 Quaternion.Euler(0, 0, angle) * AimDirection;
@@ -231,11 +192,11 @@ public class RecoilPlayerController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(
                 muzzle,
                 bulletDirection,
-                weapons[SelectedWeapon].shotRange
+                currentWeapon.shotRange
             );
 
             Vector2 endPoint =
-                muzzle + bulletDirection * weapons[SelectedWeapon].shotRange;
+                muzzle + bulletDirection * currentWeapon.shotRange;
 
             if (hit.collider != null)
                 endPoint = hit.point;
@@ -248,41 +209,60 @@ public class RecoilPlayerController : MonoBehaviour
 
     void Reload()
     {
-        if(weapons[SelectedWeapon].ammo < weapons[SelectedWeapon].magSize && weapons[SelectedWeapon].reloadEnd == 0)
+        if(currentWeapon.ammo < currentWeapon.magSize && currentWeapon.reloadEnd == 0)
         {
-            weapons[SelectedWeapon].reloadEnd = Time.time + weapons[SelectedWeapon].reloadTime;
+            currentWeapon.reloadEnd = Time.time + currentWeapon.reloadTime;
+            currentWeapon.WeaponKeyInactive();
+            currentWeapon.DisplayReload();
         }
     }
 
     void CheckReloads()
     {
-        if (weapons[SelectedWeapon].reloadEnd > 0 && Time.time >= weapons[SelectedWeapon].reloadEnd)
+        if (currentWeapon.reloadEnd > 0)
         {
-            weapons[SelectedWeapon].ammo = weapons[SelectedWeapon].magSize;
-            weapons[SelectedWeapon].reloadEnd = 0;
+            currentWeapon.DisplayReload();
+            if (Time.time >= currentWeapon.reloadEnd)
+            {
+                currentWeapon.ammo = currentWeapon.magSize;
+                currentWeapon.reloadEnd = 0;
+                currentWeapon.WeaponKeyActive();
+                currentWeapon.UpdateAmmoDisplay();
+            }
         }
     }
+
+    public InputActionReference GetInput(int i)
+    {
+        return currentWeapon.select;
+    }
+
+    public WeaponTile GetTile(int i)
+    {
+        return currentWeapon.tile;
+    }
+
 
     void OnGUI()
     {
         string ammoText = "∞";
 
-        if (SelectedWeapon > 0)
+        if (currentWeapon.ammo != float.PositiveInfinity)
         {
-            ammoText = weapons[SelectedWeapon].ammo + " / " + weapons[SelectedWeapon].magSize;
+            ammoText = currentWeapon.ammo + " / " + currentWeapon.magSize;
         }
 
-        if (weapons[SelectedWeapon].reloadEnd > 0)
+        if (currentWeapon.reloadEnd > 0)
             ammoText = "Reloading...";
 
-        float cooldownLeft = weapons[SelectedWeapon].nextShot - Time.time;
+        float cooldownLeft = currentWeapon.nextShot - Time.time;
 
         if (cooldownLeft < 0)
             cooldownLeft = 0;
 
         GUI.Box(
             new Rect(10, 110, 300, 100),
-            weapons[SelectedWeapon].name +
+            currentWeapon.name +
             "\nAmmo: " + ammoText +
             "\nCooldown: " + cooldownLeft.ToString("F1") + "s" +
             "\n1-5: Weapons | R: Reload"

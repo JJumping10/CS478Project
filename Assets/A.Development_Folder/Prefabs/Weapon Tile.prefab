@@ -379,7 +379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6898593618536562776
 RectTransform:
   m_ObjectHideFlags: 0
@@ -427,11 +427,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: -3337038689812066966, guid: 9a13bcf7d5a035040bc05d136d55ea46, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -658,6 +658,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1709659156458087430}
+  - component: {fileID: 7911359481210590359}
   m_Layer: 5
   m_Name: Weapon Tile
   m_TagString: Untagged
@@ -692,6 +693,23 @@ RectTransform:
   m_AnchoredPosition: {x: -282, y: 357.793}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7911359481210590359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522804190249670463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861971b18d8b31a41b106e30d71dd231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponTile
+  reloading: {fileID: 3914546022436909196}
+  unselected: {fileID: 133578959916899003}
+  unavailable: {fileID: 9065996501127078266}
+  keybind: {fileID: 7946607097165319803}
+  ammoQuantity: {fileID: 2179421275970387390}
 --- !u!1 &9065996501127078266
 GameObject:
   m_ObjectHideFlags: 0

@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &47509529 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7522804190249670463, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
-  m_PrefabInstance: {fileID: 6237052877736006411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &47509530 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1709659156458087430, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
@@ -291,12 +286,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1f0abb6444f9349a33c295adb78ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  pistolKey: 41
-  shotgunKey: 42
-  rifleKey: 43
-  sniperKey: 44
-  grenadeKey: 45
-  reloadKey: 32
+  selectPistol: {fileID: -7855651841639248109, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  selectShotgun: {fileID: 5515614841792868799, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  selectRifle: {fileID: 4750334435581631677, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  selectSniper: {fileID: -4268937218549553510, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  selectGrenade: {fileID: 1385297205855964305, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  pistolTile: {fileID: 6237052877736006412}
+  shotgunTile: {fileID: 834660784}
+  rifleTile: {fileID: 972296659}
+  sniperTile: {fileID: 736850231}
+  grenadeTile: {fileID: 1327994537}
+  reload: {fileID: 0}
+  fire: {fileID: 0}
 --- !u!4 &137758209
 Transform:
   m_ObjectHideFlags: 0
@@ -312,11 +313,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &150699888 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7522804190249670463, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
-  m_PrefabInstance: {fileID: 834660782}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &193617157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,11 +1088,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 403280297}
   m_CullTransparentMesh: 1
---- !u!1 &404478858 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7522804190249670463, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
-  m_PrefabInstance: {fileID: 1327994535}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &427711100
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,11 +3365,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8822433652614693700, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 101.29
+      value: 101.3571
       objectReference: {fileID: 0}
     - target: {fileID: 8822433652614693700, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.64297485
+      value: 2.2876
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3390,6 +3381,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1709659156458087430, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
   m_PrefabInstance: {fileID: 736850229}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &736850231 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7911359481210590359, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
+  m_PrefabInstance: {fileID: 736850229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861971b18d8b31a41b106e30d71dd231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponTile
 --- !u!1 &748922065
 GameObject:
   m_ObjectHideFlags: 0
@@ -3686,6 +3688,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1709659156458087430, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
   m_PrefabInstance: {fileID: 834660782}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &834660784 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7911359481210590359, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
+  m_PrefabInstance: {fileID: 834660782}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861971b18d8b31a41b106e30d71dd231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponTile
 --- !u!1 &843448404
 GameObject:
   m_ObjectHideFlags: 0
@@ -4299,11 +4312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8822433652614693700, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 101.29
+      value: 99.7125
       objectReference: {fileID: 0}
     - target: {fileID: 8822433652614693700, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.64297485
+      value: 1.4652
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4315,6 +4328,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1709659156458087430, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
   m_PrefabInstance: {fileID: 972296657}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &972296659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7911359481210590359, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
+  m_PrefabInstance: {fileID: 972296657}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861971b18d8b31a41b106e30d71dd231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponTile
 --- !u!1 &1044523046
 GameObject:
   m_ObjectHideFlags: 0
@@ -4964,11 +4988,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250461302}
   m_CullTransparentMesh: 1
---- !u!1 &1292662551 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7522804190249670463, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
-  m_PrefabInstance: {fileID: 736850229}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1296342426
 GameObject:
   m_ObjectHideFlags: 0
@@ -5202,6 +5221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grenade Tile
       objectReference: {fileID: 0}
+    - target: {fileID: 7522804190249670463, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8822433652614693700, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
       propertyPath: m_SizeDelta.y
       value: 92.1589
@@ -5209,6 +5232,10 @@ PrefabInstance:
     - target: {fileID: 8822433652614693700, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.64297485
+      objectReference: {fileID: 0}
+    - target: {fileID: 9065996501127078266, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5220,6 +5247,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1709659156458087430, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
   m_PrefabInstance: {fileID: 1327994535}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1327994537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7911359481210590359, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
+  m_PrefabInstance: {fileID: 1327994535}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861971b18d8b31a41b106e30d71dd231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponTile
 --- !u!1 &1337555238
 GameObject:
   m_ObjectHideFlags: 0
@@ -6472,38 +6510,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RecoilPlayerController
   itemManager: {fileID: 137758208}
-  SelectedWeapon: 0
+  currentWeapon:
+    name: 
+    isActive: 0
+    playerHas: 0
+    recoil: 0
+    cooldown: 0
+    magSize: 0
+    reloadTime: 0
+    ammo: 0
+    select: {fileID: 0}
+    spread: 0
+    recoilSpread: 0
+    shotRange: 0
+    bullets: 0
+    nextShot: 0
+    reloadEnd: 0
+    tile: {fileID: 0}
   AimDirection: {x: 1, y: 0}
-  pistolRecoil: 4.5
-  pistolCooldown: 0.22
-  pistolMagSize: Infinity
-  pistolTile: {fileID: 47509529}
-  selectPistol: {fileID: -7855651841639248109, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  shotgunRecoil: 12
-  shotgunCooldown: 0.9
-  shotgunMagSize: 5
-  shotgunReloadTime: 1.7
-  shotgunTile: {fileID: 150699888}
-  selectShotgun: {fileID: 5515614841792868799, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  rifleRecoil: 2.2
-  rifleCooldown: 0.13
-  rifleMagSize: 18
-  rifleReloadTime: 1.9
-  rifleTile: {fileID: 1823847001}
-  rifleKey: 43
-  selectRifle: {fileID: 4750334435581631677, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  sniperRecoil: 15
-  sniperCooldown: 1.5
-  sniperMagSize: 3
-  sniperReloadTime: 2.5
-  sniperTile: {fileID: 1292662551}
-  selectSniper: {fileID: -4268937218549553510, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  grenadeRecoil: 4
-  grenadeCooldown: 0.7
-  grenadeMagSize: 4
-  grenadeReloadTime: 2.2
   grenadePrefab: {fileID: 828609369084121531, guid: f5bf59210f55aa54fbea6852c55a2249, type: 3}
-  grenadeTile: {fileID: 404478858}
+  selectPistol: {fileID: -7855651841639248109, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  selectShotgun: {fileID: 5515614841792868799, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  selectRifle: {fileID: 4750334435581631677, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  selectSniper: {fileID: -4268937218549553510, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   selectGrenade: {fileID: 1385297205855964305, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   reload: {fileID: 6466009077096546887, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   fire: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
@@ -6910,11 +6939,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802161272}
   m_CullTransparentMesh: 1
---- !u!1 &1823847001 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7522804190249670463, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
-  m_PrefabInstance: {fileID: 972296657}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1835863034
 GameObject:
   m_ObjectHideFlags: 0
@@ -8111,6 +8135,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
+--- !u!114 &6237052877736006412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7911359481210590359, guid: 1976ca2ec16efe945a28e52a0d97fcb0, type: 3}
+  m_PrefabInstance: {fileID: 6237052877736006411}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861971b18d8b31a41b106e30d71dd231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponTile
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
