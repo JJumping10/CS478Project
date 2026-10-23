@@ -20,13 +20,12 @@ public class KeyRebinder : MonoBehaviour
             actions.LoadBindingOverridesFromJson(json);
     }
 
-    public void StartRebind(
-        string actionName,
-        int bindingIndex,
-        TMP_Text keyLabel)
+    public void StartRebind(string actionName, int bindingIndex, TMP_Text keyLabel)
     {
         if (rebindOperation != null)
+        {
             return;
+        }
 
         InputAction action = actions.FindAction(actionName);
 
@@ -41,7 +40,9 @@ public class KeyRebinder : MonoBehaviour
         bool wasEnabled = action.enabled;
 
         if (wasEnabled)
+        {
             action.Disable();
+        }
 
         rebindOperation = action
             .PerformInteractiveRebinding(bindingIndex)
@@ -52,15 +53,13 @@ public class KeyRebinder : MonoBehaviour
                 rebindOperation = null;
 
                 if (wasEnabled)
+                {
                     action.Enable();
+                }
 
-                keyLabel.text =
-                    action.GetBindingDisplayString(bindingIndex);
+                keyLabel.text = action.GetBindingDisplayString(bindingIndex);
 
-                PlayerPrefs.SetString(
-                    SaveKey,
-                    actions.SaveBindingOverridesAsJson()
-                );
+                PlayerPrefs.SetString(SaveKey, actions.SaveBindingOverridesAsJson());
                 PlayerPrefs.Save();
             })
             .OnCancel(operation =>
@@ -69,25 +68,24 @@ public class KeyRebinder : MonoBehaviour
                 rebindOperation = null;
 
                 if (wasEnabled)
+                {
                     action.Enable();
+                }
 
-                keyLabel.text =
-                    action.GetBindingDisplayString(bindingIndex);
+                keyLabel.text = action.GetBindingDisplayString(bindingIndex);
             });
 
         rebindOperation.Start();
     }
 
-    public void RefreshLabel(
-        string actionName,
-        int bindingIndex,
-        TMP_Text keyLabel)
+    public void RefreshLabel(string actionName, int bindingIndex, TMP_Text keyLabel)
     {
         InputAction action = actions.FindAction(actionName);
 
         if (action != null)
-            keyLabel.text =
-                action.GetBindingDisplayString(bindingIndex);
+        {
+            keyLabel.text = action.GetBindingDisplayString(bindingIndex);
+        }
     }
 
     private void OnDestroy()
