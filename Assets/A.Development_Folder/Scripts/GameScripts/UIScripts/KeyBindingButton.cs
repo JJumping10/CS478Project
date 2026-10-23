@@ -26,10 +26,6 @@ public class KeyBindingButton : MonoBehaviour
 
     public void Rebind()
     {
-        rebinder.StartRebind(
-            actionName,
-            bindingIndex,
-            keyLabel
-        );
+        rebinder.StartRebind(actionName, bindingIndex, keyLabel);
     }
 }
