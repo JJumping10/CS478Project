@@ -12,7 +12,6 @@ public class Health_Script : MonoBehaviour
 
     void Start()
     {
-        // Remember where the player began the level
         startPosition = transform.position;
         startRotation = transform.rotation;
 
@@ -33,6 +32,12 @@ public class Health_Script : MonoBehaviour
         }
     }
 
+    // The saw calls this
+    public void TakeDamage(float amount)
+    {
+        Set_Health(-amount);
+    }
+
     private void Set_Health(float Health_Change)
     {
         Health += Health_Change;
@@ -50,11 +55,11 @@ public class Health_Script : MonoBehaviour
         transform.position = startPosition;
         transform.rotation = startRotation;
 
-        Rigidbody rb = GetComponent<Rigidbody>();
-
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
         }
 
         Health = MaxHealth;
