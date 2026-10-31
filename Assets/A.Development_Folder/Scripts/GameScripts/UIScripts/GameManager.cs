@@ -21,7 +21,10 @@ public class GameManager : MonoBehaviour
     public event Action<float> OnTimeUpdate;
     public event Action<int> OnAttemptsUpdate;
 
+    [SerializeField] private InputActionReference PauseResume;
+
     [SerializeField] public TMP_Text bonusPointsBox;
+    public GameObject UI;
     public GameObject debugMenu;
 
     public void Awake()
@@ -34,13 +37,14 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(transform.root.gameObject);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        GameTimer.Start();
+        UI.SetActive(true);
     }
 
     // Update is called once per frame
