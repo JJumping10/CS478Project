@@ -44,6 +44,11 @@ public class WeaponTile : MonoBehaviour
         unselected.SetActive(true);
     }
 
+    public void Cooldown(float percentRemaining)
+    {
+        reloading.fillAmount = percentRemaining / 100f;
+    }
+
     public void Reload(float percentRemaining)
     {
         reloading.fillAmount = percentRemaining / 100f;

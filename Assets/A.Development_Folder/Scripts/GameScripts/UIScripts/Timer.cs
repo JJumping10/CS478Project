@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer instance;
     public float GameTime { get; private set; }
     public bool IsRunning { get; private set; }
     const int BASE_POINTS = 60000000; // points for completing the level in one second
@@ -11,6 +12,19 @@ public class Timer : MonoBehaviour
     {
         GameTime = 0;
         IsRunning = false;
+    }
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(transform.root.gameObject);
+        }
+        else
+        {
+            Destroy(transform.root.gameObject);
+        }
     }
 
     public void Start()

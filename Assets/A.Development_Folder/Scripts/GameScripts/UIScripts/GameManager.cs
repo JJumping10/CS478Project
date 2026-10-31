@@ -27,24 +27,26 @@ public class GameManager : MonoBehaviour
     public GameObject UI;
     public GameObject debugMenu;
 
+    public Boolean isPaused = false;
+
     public void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(transform.root.gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(transform.root.gameObject);
         }
-        DontDestroyOnLoad(transform.root.gameObject);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameTimer.Start();
-        UI.SetActive(true);
+        GameTimer.Stop();
+        UI.SetActive(false);
     }
 
     // Update is called once per frame

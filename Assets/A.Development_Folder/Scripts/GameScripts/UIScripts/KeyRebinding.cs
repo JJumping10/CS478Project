@@ -46,7 +46,7 @@ public class KeyRebinder : MonoBehaviour
 
         rebindOperation = action
             .PerformInteractiveRebinding(bindingIndex)
-            .WithCancelingThrough("<Keyboard>/escape")
+//            .WithCancelingThrough("<Keyboard>/escape")
             .OnComplete(operation =>
             {
                 operation.Dispose();

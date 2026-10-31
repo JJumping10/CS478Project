@@ -4,11 +4,25 @@ using TMPro;
 public class UI : MonoBehaviour
 {
 
+    public static UI instance;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private TMP_Text score;
     [SerializeField] private TMP_Text level;
     [SerializeField] private TMP_Text time;
     [SerializeField] private TMP_Text attempts;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(transform.root.gameObject);
+        }
+        else
+        {
+            Destroy(transform.root.gameObject);
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

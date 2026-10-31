@@ -9,6 +9,7 @@ using UnityEngine.Tilemaps;
 public class ItemManager : MonoBehaviour
 {
 
+    public static ItemManager instance;
     public const int NUM_WEAPONS = 5;
     public static int SelectedWeapon = 0;
     public static int PreviousWeapon = 0;
@@ -65,6 +66,21 @@ public class ItemManager : MonoBehaviour
             this.tile = tile;
         }
 
+        public void DisplayCooldown()
+        {
+            float currentTime = Time.time;
+            float progress = (nextShot-currentTime)/cooldown * 100f;
+            if (currentTime <= nextShot)
+            {
+//                tile.Cooldown(Mathf.Clamp(progress,0f,100f));
+                tile.Cooldown(100);
+            }
+            else
+            {
+                tile.Cooldown(0);
+            }
+        }
+
         public void DisplayReload()
         {
             float currentTime = Time.time;
@@ -73,7 +89,6 @@ public class ItemManager : MonoBehaviour
             {
                 tile.Reload(Mathf.Clamp(progress,0f,100f));
             }
-//            yield return new WaitForSeconds(reloadTime);
             UpdateAmmoDisplay();
         }
 
@@ -110,6 +125,16 @@ public class ItemManager : MonoBehaviour
 
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(transform.root.gameObject);
+        }
+        else
+        {
+            Destroy(transform.root.gameObject);
+        }
+
         // create weapons
         weapons[0] = new Weapon("Pistol", 4.5f, 0.22f, float.PositiveInfinity, float.PositiveInfinity, 0f, selectPistol, 0f, 0f, 30f, 1, pistolTile);
         weapons[1] = new Weapon("Shotgun", 12f, 0.9f, 5f, 5f, 1.7f, selectShotgun, 12f, 6f, 30f, 7, shotgunTile);
