@@ -1,5 +1,3 @@
-
-
 using UnityEngine;
 
 public class WeaponVisuals2D : MonoBehaviour
@@ -27,7 +25,7 @@ public class WeaponVisuals2D : MonoBehaviour
     void LateUpdate()
     {
         // Get the selected weapon
-        int selectedWeapon = controller.SelectedWeapon;
+        int selectedWeapon = ItemManager.SelectedWeapon;
 
         // Get the direction the player is aiming
         Vector2 aimDirection = controller.AimDirection;
