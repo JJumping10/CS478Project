@@ -3,14 +3,17 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public Vector2 updatedPos;
-    public GameObject gameObj;
     public ItemManager itemManager;
+
+    void Awake()
+    {
+        itemManager = GameManager.instance.ItemManager;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         updatedPos = new Vector2(0,0.5f);//Signify spawn
-        gameObj = GameObject.Find("ItemManager");
-        itemManager = gameObj.GetComponent<ItemManager>();
     }
 
     // Update is called once per frame

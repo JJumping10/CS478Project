@@ -8,6 +8,8 @@ public class EndpointScript : MonoBehaviour
     public GameObject player, playerBackground;
     public PlayerScript playerScript;
     public BackgroundImageScript backgroundImageScript;
+    public GameManager gameManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +29,9 @@ public class EndpointScript : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player"){ 
             var sceneName = SceneManager.GetActiveScene().name;//Get the scene name to compare to other scenes
+            gameManager.GameTimer.CalculatePoints();
+            gameManager.CalculateAttemptsPoints();
+
             if (sceneName == "PlatformerLevel1Scene")
             {
                 playerScript.updatedPos = new Vector2(0,0.5f);//Signify spawn to beginning of a new level

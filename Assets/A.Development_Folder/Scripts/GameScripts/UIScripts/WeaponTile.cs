@@ -70,4 +70,9 @@ public class WeaponTile : MonoBehaviour
         ammoQuantity.text = ammoText;
     }
 
+public string DebugSceneName()
+{
+    return gameObject.scene.name;
+}
+
 }

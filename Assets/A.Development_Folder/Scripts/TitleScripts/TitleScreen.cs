@@ -39,7 +39,7 @@ public class TitleScreen : MonoBehaviour
     {
         if(Configs.SFX)
         {
-            Debug.Log("Button clicked: " + buttonName);
+//            Debug.Log("Button clicked: " + buttonName);
             menuAudioSource.PlayOneShot(buttonClickSFX);
         }
     }
@@ -50,7 +50,7 @@ public class TitleScreen : MonoBehaviour
 
         if(Configs.SFX)
         {
-            Debug.Log("Hovered: " + button.name);
+//            Debug.Log("Hovered: " + button.name);
             menuAudioSource.PlayOneShot(buttonSelectSFX);
         }
     }

@@ -16,15 +16,6 @@ public class Timer : MonoBehaviour
 
     public void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(transform.root.gameObject);
-        }
-        else
-        {
-            Destroy(transform.root.gameObject);
-        }
     }
 
     public void Start()

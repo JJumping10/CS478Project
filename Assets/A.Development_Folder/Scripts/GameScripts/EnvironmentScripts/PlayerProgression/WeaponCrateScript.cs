@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class WeaponCrateScript : MonoBehaviour
 {
-    public GameObject gameObj;//Use to get game object of the ItemManager
-    public ItemManager itemManager;//The actual ItemManager script
+    public ItemManager itemManager;  //The actual ItemManager script
+
+    void Awake()
+    {
+        itemManager = GameManager.instance.ItemManager;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObj = GameObject.Find("ItemManager");
-        itemManager = gameObj.GetComponent<ItemManager>();
     }
 
     // Update is called once per frame

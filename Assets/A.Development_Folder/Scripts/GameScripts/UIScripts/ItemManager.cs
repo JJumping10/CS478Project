@@ -72,7 +72,6 @@ public class ItemManager : MonoBehaviour
             float progress = (nextShot-currentTime)/cooldown * 100f;
             if (currentTime <= nextShot)
             {
-//                tile.Cooldown(Mathf.Clamp(progress,0f,100f));
                 tile.Cooldown(100);
             }
             else
@@ -115,7 +114,7 @@ public class ItemManager : MonoBehaviour
     }
 
     // create weapons
-    public static Weapon[] weapons = new Weapon[NUM_WEAPONS];
+    public Weapon[] weapons = new Weapon[NUM_WEAPONS];
     public Weapon[] weaponsForCrateScript = new Weapon[NUM_WEAPONS];
 
     // weapon actions
@@ -126,16 +125,6 @@ public class ItemManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(transform.root.gameObject);
-        }
-        else
-        {
-            Destroy(transform.root.gameObject);
-        }
-
         // create weapons
         weapons[0] = new Weapon("Pistol", 4.5f, 0.22f, float.PositiveInfinity, float.PositiveInfinity, 0f, selectPistol, 0f, 0f, 30f, 1, pistolTile);
         weapons[1] = new Weapon("Shotgun", 12f, 0.9f, 5f, 5f, 1.7f, selectShotgun, 12f, 6f, 30f, 7, shotgunTile);
@@ -145,8 +134,8 @@ public class ItemManager : MonoBehaviour
 
         //starting weapons
         weapons[0].playerHas = true;
-        weapons[1].playerHas = true;
-        weapons[2].playerHas = true;
+//        weapons[1].playerHas = true;
+//        weapons[2].playerHas = true;
         weapons[0].isActive = true;
 
         for (int i = 0; i < NUM_WEAPONS; i++)
@@ -180,7 +169,6 @@ public class ItemManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -189,7 +177,7 @@ public class ItemManager : MonoBehaviour
         
     }
 
-    public static Weapon GetCurrentWeapon(int i)
+    public Weapon GetCurrentWeapon(int i)
     {
         if (weapons[i].playerHas)
         {

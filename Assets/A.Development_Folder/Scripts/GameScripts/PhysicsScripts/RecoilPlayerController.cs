@@ -26,12 +26,26 @@ public class RecoilPlayerController : MonoBehaviour
     [SerializeField] private InputActionReference reload;
     [SerializeField] private InputActionReference fire;
 
+    void Awake()
+    {
+        gameManager = GameManager.instance;
+        itemManager = GameManager.instance.ItemManager;
+
+        Debug.Log("GameManager scene: " +
+            gameManager.gameObject.scene.name);
+
+        Debug.Log("ItemManager scene: " +
+            itemManager.gameObject.scene.name);
+    }    
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
-        currentWeapon = ItemManager.GetCurrentWeapon(0);
-
+        currentWeapon = itemManager.GetCurrentWeapon(0);
+Debug.Log("Player received weapon tile: " + currentWeapon.tile);
+Debug.Log("Weapon tile scene: " +
+    currentWeapon.tile.DebugSceneName());
         reload.action.Enable();
         fire.action.Enable();
     }
@@ -49,26 +63,26 @@ public class RecoilPlayerController : MonoBehaviour
             // Switch weapons
             if (selectPistol.action.WasPressedThisFrame())
             {
-                currentWeapon = ItemManager.GetCurrentWeapon(0);
+                currentWeapon = itemManager.GetCurrentWeapon(0);
             }
             if (selectShotgun.action.WasPressedThisFrame())
             {
-                currentWeapon = ItemManager.GetCurrentWeapon(1);
+                currentWeapon = itemManager.GetCurrentWeapon(1);
             }
 
             if (selectRifle.action.WasPressedThisFrame())
             {
-                currentWeapon = ItemManager.GetCurrentWeapon(2);
+                currentWeapon = itemManager.GetCurrentWeapon(2);
             }
 
             if (selectSniper.action.WasPressedThisFrame())
             {
-                currentWeapon = ItemManager.GetCurrentWeapon(3);
+                currentWeapon = itemManager.GetCurrentWeapon(3);
             }
 
             if (selectGrenade.action.WasPressedThisFrame())
             {
-                currentWeapon = ItemManager.GetCurrentWeapon(4);
+                currentWeapon = itemManager.GetCurrentWeapon(4);
             }
 
             // Aim toward mouse

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
+    public ItemManager ItemManager;
+
     public int score = 0;
     const int MAX_SCORE = 9999999;
     const int ATTEMPT_POINTS = 10000;
@@ -26,8 +28,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TMP_Text bonusPointsBox;
     public GameObject UI;
     public GameObject debugMenu;
+        public GameObject pauseMenu;
 
     public Boolean isPaused = false;
+
 
     public void Awake()
     {
@@ -36,7 +40,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(transform.root.gameObject);
         }
-        else
+        else if (instance != this)
         {
             Destroy(transform.root.gameObject);
         }
@@ -45,8 +49,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameTimer.Stop();
-        UI.SetActive(false);
+//        GameTimer.Stop();
+//        UI.SetActive(false);
     }
 
     // Update is called once per frame
