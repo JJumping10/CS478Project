@@ -7,6 +7,7 @@ public class RecoilPlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Camera mainCamera;
     public ItemManager itemManager;
+    public GameManager gameManager;
 
     public ItemManager.Weapon currentWeapon;
     public Vector2 AimDirection = Vector2.right;
@@ -37,69 +38,75 @@ public class RecoilPlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Mouse.current == null || Keyboard.current == null)
-            return;
-
-        if (mainCamera == null)
-            return;
-
-        // Switch weapons
-        if (selectPistol.action.WasPressedThisFrame())
+        if (gameManager.isPaused == false)
         {
-            currentWeapon = ItemManager.GetCurrentWeapon(0);
+            if (Mouse.current == null || Keyboard.current == null)
+                return;
+
+            if (mainCamera == null)
+                return;
+
+            // Switch weapons
+            if (selectPistol.action.WasPressedThisFrame())
+            {
+                currentWeapon = ItemManager.GetCurrentWeapon(0);
+            }
+            if (selectShotgun.action.WasPressedThisFrame())
+            {
+                currentWeapon = ItemManager.GetCurrentWeapon(1);
+            }
+
+            if (selectRifle.action.WasPressedThisFrame())
+            {
+                currentWeapon = ItemManager.GetCurrentWeapon(2);
+            }
+
+            if (selectSniper.action.WasPressedThisFrame())
+            {
+                currentWeapon = ItemManager.GetCurrentWeapon(3);
+            }
+
+            if (selectGrenade.action.WasPressedThisFrame())
+            {
+                currentWeapon = ItemManager.GetCurrentWeapon(4);
+            }
+
+            // Aim toward mouse
+            Vector3 mousePos = Mouse.current.position.ReadValue();
+
+            mousePos.z = Mathf.Abs(
+                mainCamera.transform.position.z - transform.position.z
+            );
+
+            Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(mousePos);
+            Vector2 direction = mouseWorld - transform.position;
+
+            if (direction.magnitude > 0.01f)
+                AimDirection = direction.normalized;
+
+            // cooldown
+            currentWeapon.DisplayCooldown();
+
+            // Reload
+            if (reload.action.WasPressedThisFrame())
+                Reload();
+
+            CheckReloads();
+
+            // Rifle is automatic, other weapons are single click
+            if (currentWeapon.name == "Rifle")
+            {
+                if (fire.action.IsPressed())
+                    Shoot();
+            }
+            else
+            {
+                if (fire.action.WasPressedThisFrame())
+                    Shoot();
+            }
+
+            Debug.DrawRay(transform.position, AimDirection * 2f, Color.cyan);
         }
-        if (selectShotgun.action.WasPressedThisFrame())
-        {
-            currentWeapon = ItemManager.GetCurrentWeapon(1);
-        }
-
-        if (selectRifle.action.WasPressedThisFrame())
-        {
-            currentWeapon = ItemManager.GetCurrentWeapon(2);
-        }
-
-        if (selectSniper.action.WasPressedThisFrame())
-        {
-            currentWeapon = ItemManager.GetCurrentWeapon(3);
-        }
-
-        if (selectGrenade.action.WasPressedThisFrame())
-        {
-            currentWeapon = ItemManager.GetCurrentWeapon(4);
-        }
-
-        // Aim toward mouse
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-
-        mousePos.z = Mathf.Abs(
-            mainCamera.transform.position.z - transform.position.z
-        );
-
-        Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(mousePos);
-        Vector2 direction = mouseWorld - transform.position;
-
-        if (direction.magnitude > 0.01f)
-            AimDirection = direction.normalized;
-
-        // Reload
-        if (reload.action.WasPressedThisFrame())
-            Reload();
-
-        CheckReloads();
-
-        // Rifle is automatic, other weapons are single click
-        if (currentWeapon.name == "Rifle")
-        {
-            if (fire.action.IsPressed())
-                Shoot();
-        }
-        else
-        {
-            if (fire.action.WasPressedThisFrame())
-                Shoot();
-        }
-
-        Debug.DrawRay(transform.position, AimDirection * 2f, Color.cyan);
     }
 
     void FixedUpdate()

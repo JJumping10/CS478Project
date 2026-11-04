@@ -21,26 +21,32 @@ public class GameManager : MonoBehaviour
     public event Action<float> OnTimeUpdate;
     public event Action<int> OnAttemptsUpdate;
 
+    [SerializeField] private InputActionReference PauseResume;
+
     [SerializeField] public TMP_Text bonusPointsBox;
+    public GameObject UI;
     public GameObject debugMenu;
+
+    public Boolean isPaused = false;
 
     public void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(transform.root.gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(transform.root.gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        GameTimer.Stop();
+        UI.SetActive(false);
     }
 
     // Update is called once per frame

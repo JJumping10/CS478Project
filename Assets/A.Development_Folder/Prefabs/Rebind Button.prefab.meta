@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 6db5daefce79cc74a9bacf0103dd286a
+=======
+guid: 48b9e20dad22c584ba1c2f9b8168216c
+>>>>>>> level-ui-weapons
 PrefabImporter:
   externalObjects: {}
   userData: 

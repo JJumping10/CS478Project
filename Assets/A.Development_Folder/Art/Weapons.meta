@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 9fca557f27dfd064aa4ca6e10b3a26e2
+=======
+guid: 7bc75ea459296174e8a9dfd59abc0a41
+>>>>>>> level-ui-weapons
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
