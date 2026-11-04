@@ -116,6 +116,7 @@ public class ItemManager : MonoBehaviour
 
     // create weapons
     public static Weapon[] weapons = new Weapon[NUM_WEAPONS];
+    public Weapon[] weaponsForCrateScript = new Weapon[NUM_WEAPONS];
 
     // weapon actions
     [SerializeField] private InputActionReference reload;
@@ -202,5 +203,35 @@ public class ItemManager : MonoBehaviour
             return weapons[SelectedWeapon];
         }
     }
+
+    public void UnlockWeapon(int weaponInt, int unlockedWeapon, bool isUnlocked)//As player won't have the items immediately, this will grant them the items when they get it
+    {
+        weaponsForCrateScript[unlockedWeapon].playerHas = isUnlocked;//Sets the unlock true or false
+        weapons[weaponInt].playerHas = weaponsForCrateScript[unlockedWeapon].playerHas;//updates the weapons class variable above to allow usage
+        for (int i = 0; i < NUM_WEAPONS; i++)//updates to grant access to the weapon, copied from the for statement above this
+        {
+            weapons[i].tile.keybind.text = weapons[i].select.action.GetBindingDisplayString();
+            weapons[i].tile.reloading.fillAmount = 0f;
+            if (weapons[i].playerHas)
+            {
+                weapons[i].tile.MakeAvailable();
+                weapons[i].select.action.Enable();
+                weapons[i].UpdateAmmoDisplay();
+            }
+            else
+            {
+                weapons[i].tile.MakeUnavailable();
+            }
+            if (weapons[i].isActive)
+            {
+                weapons[i].tile.SelectWeapon();
+            }
+            else
+            {
+                weapons[i].tile.UnselectWeapon();
+            }
+        }
+    }
+
 
 }
