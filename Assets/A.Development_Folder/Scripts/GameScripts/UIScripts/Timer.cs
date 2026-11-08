@@ -21,7 +21,7 @@ public class Timer : MonoBehaviour
     public void Start()
     {
         IsRunning = true;
-        Debug.Log("GameTime: " + GameTime);
+//        Debug.Log("GameTime: " + GameTime);
     }
     public void Stop()
     {

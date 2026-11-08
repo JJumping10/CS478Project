@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         updatedPos = new Vector2(0,0.5f);//Signify spawn
+
     }
 
     // Update is called once per frame

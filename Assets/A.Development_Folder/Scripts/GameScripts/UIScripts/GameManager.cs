@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     const int BASE_ATTEMPTS = 4; // # of attempts which give no points
     public int attempts = 1;
     public int level = 0;
+    const int MAX_LEVEL = 5;
     public Timer GameTimer;
 
     public event Action<int> OnScoreUpdate;
@@ -89,7 +90,10 @@ public class GameManager : MonoBehaviour
 
     public void SetLevel(int levelNumber)
     {
-        level = levelNumber;
+        if (levelNumber > 0 && levelNumber <= MAX_LEVEL)
+        {
+            level = levelNumber;
+        }
         OnLevelUpdate?.Invoke(levelNumber);
     }
 

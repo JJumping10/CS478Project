@@ -30,12 +30,6 @@ public class RecoilPlayerController : MonoBehaviour
     {
         gameManager = GameManager.instance;
         itemManager = GameManager.instance.ItemManager;
-
-        Debug.Log("GameManager scene: " +
-            gameManager.gameObject.scene.name);
-
-        Debug.Log("ItemManager scene: " +
-            itemManager.gameObject.scene.name);
     }    
 
     void Start()
@@ -43,9 +37,6 @@ public class RecoilPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         currentWeapon = itemManager.GetCurrentWeapon(0);
-Debug.Log("Player received weapon tile: " + currentWeapon.tile);
-Debug.Log("Weapon tile scene: " +
-    currentWeapon.tile.DebugSceneName());
         reload.action.Enable();
         fire.action.Enable();
     }
