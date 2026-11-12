@@ -4,11 +4,16 @@ using TMPro;
 public class UI : MonoBehaviour
 {
 
-    [SerializeField] private GameManager gameManager;
+    private GameManager gameManager;
     [SerializeField] private TMP_Text score;
     [SerializeField] private TMP_Text level;
     [SerializeField] private TMP_Text time;
     [SerializeField] private TMP_Text attempts;
+
+    void Awake()
+    {
+        gameManager = GameManager.instance;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,6 +32,22 @@ public class UI : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnEnable()
+    {
+        gameManager.OnScoreUpdate += UpdateScore;
+        gameManager.OnLevelUpdate += UpdateLevel;
+        gameManager.OnAttemptsUpdate += UpdateAttempts;
+        gameManager.OnTimeUpdate += UpdateTime;
+    }
+
+    void OnDisable()
+    {
+        gameManager.OnScoreUpdate -= UpdateScore;
+        gameManager.OnLevelUpdate -= UpdateLevel;
+        gameManager.OnAttemptsUpdate -= UpdateAttempts;
+        gameManager.OnTimeUpdate -= UpdateTime;
     }
 
     private void UpdateScore(int newScore)
@@ -48,4 +69,5 @@ public class UI : MonoBehaviour
     {
         attempts.text = $"{newAttempts}";
     }
+
 }
