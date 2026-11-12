@@ -17,6 +17,9 @@ public class EndpointScript : MonoBehaviour
         playerBackground = GameObject.Find("BackgroundImage");//Player background image game object
         playerScript = player.GetComponent<PlayerScript>();//Get the player script to move the spawn
         backgroundImageScript = GameObject.Find("BackgroundImage").GetComponent<BackgroundImageScript>();
+        //Added a reference to find game manager, but don't know how to reference correctly, it is up to (Paul) to set up the connection
+        //P.S. The pause is not working either 
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
