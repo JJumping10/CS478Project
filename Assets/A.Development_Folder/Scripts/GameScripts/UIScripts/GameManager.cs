@@ -8,12 +8,15 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
+    public ItemManager ItemManager;
+
     public int score = 0;
     const int MAX_SCORE = 9999999;
     const int ATTEMPT_POINTS = 10000;
     const int BASE_ATTEMPTS = 4; // # of attempts which give no points
     public int attempts = 1;
-    public int level = 0;
+    public int level = 4;
+    const int MAX_LEVEL = 5;
     public Timer GameTimer;
 
     public event Action<int> OnScoreUpdate;
@@ -21,20 +24,29 @@ public class GameManager : MonoBehaviour
     public event Action<float> OnTimeUpdate;
     public event Action<int> OnAttemptsUpdate;
 
+    private InputActionReference PauseResume;
+    public InputActionAsset inputActions;
+
     [SerializeField] public TMP_Text bonusPointsBox;
+    public GameObject UI;
     public GameObject debugMenu;
+    public GameObject pauseMenu;
+    [SerializeField] public Pause pause;
+
+    public Boolean isPaused = false;
 
     public void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(transform.root.gameObject);
         }
-        else
+        else if (instance != this)
         {
-            Destroy(gameObject);
+            Destroy(transform.root.gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        inputActions.FindActionMap("Player").Disable();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -79,8 +91,11 @@ public class GameManager : MonoBehaviour
 
     public void SetLevel(int levelNumber)
     {
-        level = levelNumber;
-        OnLevelUpdate?.Invoke(levelNumber);
+        if (levelNumber > 0 && levelNumber <= MAX_LEVEL)
+        {
+            level = levelNumber;
+            OnLevelUpdate?.Invoke(levelNumber);
+        }
     }
 
     public void AddAttempt()
@@ -95,12 +110,7 @@ public class GameManager : MonoBehaviour
         OnAttemptsUpdate?.Invoke(attempts);
     }
 
-    public void CalculateAttemptsPoints()
-    {
-        StartCoroutine(AttemptsToPoints());
-    }
-
-    private IEnumerator AttemptsToPoints()
+    public IEnumerator AttemptsToPoints()
     {
         int totalPoints = ATTEMPT_POINTS * (BASE_ATTEMPTS - attempts);
         attempts = 0;
