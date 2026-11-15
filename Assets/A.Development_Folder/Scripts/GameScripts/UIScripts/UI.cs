@@ -18,13 +18,9 @@ public class UI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameManager.OnScoreUpdate += UpdateScore;
         UpdateScore(gameManager.score);
-        gameManager.OnLevelUpdate += UpdateLevel;
-        UpdateLevel(gameManager.score);
-        gameManager.OnAttemptsUpdate += UpdateAttempts;
+        UpdateLevel(gameManager.level);
         gameManager.ResetAttempts();
-        gameManager.OnTimeUpdate += UpdateTime;
         UpdateTime(gameManager.GameTimer.GameTime);
     }
 

@@ -5,9 +5,8 @@ using UnityEngine.SceneManagement;
 public class Pause : MonoBehaviour
 {
 
-    [SerializeField] private GameManager gameManager;
+    private GameManager gameManager;
 
-    [SerializeField] private InputActionAsset inputActions;
     private InputAction PauseAction;
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private GameObject PausePanel;
@@ -16,7 +15,12 @@ public class Pause : MonoBehaviour
 
     void Awake()
     {
-        PauseAction = inputActions.FindAction("Pause-Resume");
+    }
+
+    void Start()
+    {
+        gameManager = GameManager.instance;
+        PauseAction = gameManager.inputActions.FindAction("Player/Pause-Resume", true);
     }
 
     // Update is called once per frame
@@ -49,7 +53,7 @@ public class Pause : MonoBehaviour
         gameManager.GameTimer.Stop();
         Time.timeScale = 0f;
         PauseMenu.SetActive(true);
-        inputActions.FindActionMap("Player").Disable();
+        gameManager.inputActions.FindActionMap("Player").Disable();
         PauseAction.Enable();
     }
 
@@ -58,7 +62,7 @@ public class Pause : MonoBehaviour
         PauseMenu.SetActive(false);
         Time.timeScale = 1f;
         gameManager.GameTimer.Start();
-        inputActions.FindActionMap("Player").Enable();
+        gameManager.inputActions.FindActionMap("Player").Enable();
         gameManager.isPaused = false;
     }
 

@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba555f7525b56944fa6347a7baff764b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  gameManager: {fileID: 0}
-  UI: {fileID: 0}
-  PauseMenu: {fileID: 0}
   currentLevel: 1
+  ManagersPrefab: {fileID: 2318672904760361798, guid: 6eabee8c1c39a404580fb050c9f4c727, type: 3}

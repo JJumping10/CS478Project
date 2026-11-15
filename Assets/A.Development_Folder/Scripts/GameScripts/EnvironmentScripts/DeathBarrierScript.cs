@@ -8,12 +8,12 @@ public class DeathBarrierScript : MonoBehaviour
 
     void Awake()
     {
-        gameManager = GameManager.instance;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameManager = GameManager.instance;
         player = GameObject.Find("Player");
         playerScript = player.GetComponent<PlayerScript>();
     }

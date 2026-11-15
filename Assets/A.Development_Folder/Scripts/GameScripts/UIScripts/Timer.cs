@@ -39,12 +39,7 @@ public class Timer : MonoBehaviour
         GameTime += newTime;
     }
 
-    public void CalculatePoints()
-    {
-        StartCoroutine(TimeToPoints());
-    }
-
-    private IEnumerator TimeToPoints()
+    public IEnumerator TimeToPoints()
     {
         IsRunning = false;
         float playerTime = Mathf.Max(0f,Mathf.FloorToInt(GameTime));

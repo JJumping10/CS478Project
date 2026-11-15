@@ -1278,8 +1278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a2e87787a5f504baf9744b6f8cf04e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  gameManager: {fileID: 0}
-  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  inputActions: {fileID: -944628639613478452, guid: 9651693ce1a24e144a3d5240ea278f54, type: 3}
   PauseMenu: {fileID: 5379974797826769786}
   PausePanel: {fileID: 1366909206384560437}
   InstructionMenu: {fileID: 996381637781037770}

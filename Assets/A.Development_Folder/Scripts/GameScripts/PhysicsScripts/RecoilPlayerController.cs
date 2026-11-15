@@ -28,12 +28,13 @@ public class RecoilPlayerController : MonoBehaviour
 
     void Awake()
     {
-        gameManager = GameManager.instance;
-        itemManager = GameManager.instance.ItemManager;
     }    
 
     void Start()
     {
+        gameManager = GameManager.instance;
+        itemManager = GameManager.instance.ItemManager;
+
         rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
         currentWeapon = itemManager.GetCurrentWeapon(0);

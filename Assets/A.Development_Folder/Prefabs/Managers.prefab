@@ -85,6 +85,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2481160468733806237, guid: 1e882f7e3af6f9d43855a50bcfa6774c, type: 3}
+      propertyPath: actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 9651693ce1a24e144a3d5240ea278f54, type: 3}
+    - target: {fileID: 2481160468733806237, guid: 1e882f7e3af6f9d43855a50bcfa6774c, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 395037388513497571}
     - target: {fileID: 8511130882797934533, guid: 1e882f7e3af6f9d43855a50bcfa6774c, type: 3}
       propertyPath: gameManager
       value: 
@@ -107,6 +115,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2321621932529818134, guid: 1e882f7e3af6f9d43855a50bcfa6774c, type: 3}
   m_PrefabInstance: {fileID: 3823146395257028768}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4833232192645322597 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8511130882797934533, guid: 1e882f7e3af6f9d43855a50bcfa6774c, type: 3}
+  m_PrefabInstance: {fileID: 3823146395257028768}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5392006095789335444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a2e87787a5f504baf9744b6f8cf04e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &5392006095789335444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9212899850627048244, guid: 1e882f7e3af6f9d43855a50bcfa6774c, type: 3}
@@ -667,6 +686,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8592548482938122546}
     - target: {fileID: 8912496481154748383, guid: 426e2f8a1e452d14eb0c06fda771c0b0, type: 3}
+      propertyPath: pause
+      value: 
+      objectReference: {fileID: 4833232192645322597}
+    - target: {fileID: 8912496481154748383, guid: 426e2f8a1e452d14eb0c06fda771c0b0, type: 3}
       propertyPath: isPaused
       value: 0
       objectReference: {fileID: 0}
@@ -690,6 +713,10 @@ PrefabInstance:
       propertyPath: PauseResume
       value: 
       objectReference: {fileID: -8866654403397338260, guid: 9651693ce1a24e144a3d5240ea278f54, type: 3}
+    - target: {fileID: 8912496481154748383, guid: 426e2f8a1e452d14eb0c06fda771c0b0, type: 3}
+      propertyPath: inputActions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 9651693ce1a24e144a3d5240ea278f54, type: 3}
     - target: {fileID: 8912496481154748383, guid: 426e2f8a1e452d14eb0c06fda771c0b0, type: 3}
       propertyPath: bonusPointsBox
       value: 

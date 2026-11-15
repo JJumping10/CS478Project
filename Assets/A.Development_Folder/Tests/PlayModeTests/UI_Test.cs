@@ -193,7 +193,7 @@ public class UI_Test
             if (plural == "" && attempts > 1) { plural = "s"; }
             points = 10000 * (4 - attempts);
             Assert.AreEqual(attempts,gameManager.attempts);
-            gameManager.CalculateAttemptsPoints();
+            gameManager.AttemptsToPoints();
             yield return new WaitForSecondsRealtime(2f);
             Assert.AreEqual(0,gameManager.attempts);
             Assert.AreEqual(points+start,gameManager.score);
@@ -215,7 +215,7 @@ public class UI_Test
         gameManager.GameTimer.AddTime(60);
         Assert.AreEqual(60,gameManager.GameTimer.GameTime);
         Debug.Log($"PASS: Time is 60 seconds.");
-        gameManager.GameTimer.CalculatePoints();
+        gameManager.GameTimer.TimeToPoints();
         yield return new WaitForSecondsRealtime(4f);
         Assert.AreEqual(1000000,(int)gameManager.score);
         Debug.Log($"PASS: Score is 1000000 for 60 seconds.");

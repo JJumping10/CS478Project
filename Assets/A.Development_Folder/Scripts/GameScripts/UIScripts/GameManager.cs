@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     const int ATTEMPT_POINTS = 10000;
     const int BASE_ATTEMPTS = 4; // # of attempts which give no points
     public int attempts = 1;
-    public int level = 0;
+    public int level = 4;
     const int MAX_LEVEL = 5;
     public Timer GameTimer;
 
@@ -24,15 +24,16 @@ public class GameManager : MonoBehaviour
     public event Action<float> OnTimeUpdate;
     public event Action<int> OnAttemptsUpdate;
 
-    [SerializeField] private InputActionReference PauseResume;
+    private InputActionReference PauseResume;
+    public InputActionAsset inputActions;
 
     [SerializeField] public TMP_Text bonusPointsBox;
     public GameObject UI;
     public GameObject debugMenu;
-        public GameObject pauseMenu;
+    public GameObject pauseMenu;
+    [SerializeField] public Pause pause;
 
     public Boolean isPaused = false;
-
 
     public void Awake()
     {
@@ -45,13 +46,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(transform.root.gameObject);
         }
+        inputActions.FindActionMap("Player").Disable();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-//        GameTimer.Stop();
-//        UI.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -93,8 +94,8 @@ public class GameManager : MonoBehaviour
         if (levelNumber > 0 && levelNumber <= MAX_LEVEL)
         {
             level = levelNumber;
+            OnLevelUpdate?.Invoke(levelNumber);
         }
-        OnLevelUpdate?.Invoke(levelNumber);
     }
 
     public void AddAttempt()
@@ -109,12 +110,7 @@ public class GameManager : MonoBehaviour
         OnAttemptsUpdate?.Invoke(attempts);
     }
 
-    public void CalculateAttemptsPoints()
-    {
-        StartCoroutine(AttemptsToPoints());
-    }
-
-    private IEnumerator AttemptsToPoints()
+    public IEnumerator AttemptsToPoints()
     {
         int totalPoints = ATTEMPT_POINTS * (BASE_ATTEMPTS - attempts);
         attempts = 0;

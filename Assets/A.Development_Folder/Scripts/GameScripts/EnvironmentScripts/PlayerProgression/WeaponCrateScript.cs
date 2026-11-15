@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class WeaponCrateScript : MonoBehaviour
@@ -6,12 +7,12 @@ public class WeaponCrateScript : MonoBehaviour
 
     void Awake()
     {
-        itemManager = GameManager.instance.ItemManager;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        itemManager = GameManager.instance.ItemManager;
     }
 
     // Update is called once per frame
@@ -24,11 +25,17 @@ public class WeaponCrateScript : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            if(gameObject.name == "ShotgunWeaponCrate") itemManager.UnlockWeapon(1, 1, true);//Unlocked from shotgun create
-            if(gameObject.name == "RifleWeaponCrate") itemManager.UnlockWeapon(2, 2, true);//Unlocked from rifle create
-            if(gameObject.name == "SniperWeaponCrate") itemManager.UnlockWeapon(3, 3, true);//Unlocked from sniper create
-            if(gameObject.name == "GrenadeWeaponCrate") itemManager.UnlockWeapon(4, 4, true);//Unlocked from grenade create
-            Destroy(gameObject);//destroy crate from game
+            int newWeapon;
+            switch (gameObject.name)
+            {
+                case "ShotgunWeaponCrate": newWeapon = 1; break;
+                case "RifleWeaponCrate": newWeapon = 2; break;
+                case "SniperWeaponCrate": newWeapon = 3; break;
+                case "GrenadeWeaponCrate": newWeapon = 4; break;
+                default: newWeapon = 0; break;
+            }
+            itemManager.UnlockWeapon(newWeapon);
+            Destroy(gameObject);  //destroy crate from game
         } 
     }
 }

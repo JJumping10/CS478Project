@@ -4,17 +4,28 @@ public class InitialiseLevel : MonoBehaviour
 {
 
     public int currentLevel;
-
+    [SerializeField] private GameObject ManagersPrefab;
+    private GameObject managers;
+    private GameManager gameManager;
 
     void Awake()
     {
-        GameManager gameManager = GameManager.instance;
+        if (GameObject.Find("Managers") == null)
+        {
+            managers = Instantiate(ManagersPrefab);
+            DontDestroyOnLoad(managers);
+        }
+
+        gameManager = GameManager.instance;
 
         gameManager.UI.SetActive(true);
-        gameManager.pauseMenu.SetActive(false);
+        gameManager.isPaused = false;
         gameManager.SetLevel(currentLevel);
         gameManager.ResetAttempts();
+        gameManager.GameTimer.Reset();
         gameManager.GameTimer.Start();
+        gameManager.inputActions.FindActionMap("Player").Enable();
+        Time.timeScale = 1f;
     }
 
 
