@@ -256,6 +256,7 @@ public class RecoilPlayerController : MonoBehaviour
     }
 
 
+/*
     void OnGUI()
     {
         string ammoText = "∞";
@@ -281,4 +282,5 @@ public class RecoilPlayerController : MonoBehaviour
             "\n1-5: Weapons | R: Reload"
         );
     }
+*/
 }
