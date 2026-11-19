@@ -14,7 +14,6 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         updatedPos = new Vector2(0,0.5f);//Signify spawn
-
     }
 
     // Update is called once per frame
@@ -24,7 +23,7 @@ public class PlayerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.M)) CheatCode();//Gives player an assortment of cheats
     }
 
-    public void RespawnPlayer(){ transform.position = updatedPos; }//Respawn to last position saved
+    public void RespawnPlayer(){ transform.position = updatedPos; transform.rotation = new Quaternion(0,0,0,0); }//Respawn to last position saved
 
     public void CheatCode()//Gives the player all weapons at once
     {
