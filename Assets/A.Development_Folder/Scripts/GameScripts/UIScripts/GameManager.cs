@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -138,5 +139,47 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.50f);
         bonusPointsBox.gameObject.SetActive(false);
     }
+
+    public void Pause()
+    {
+        isPaused = true;
+        GameTimer.Stop();
+        Time.timeScale = 0f;
+        inputActions.FindActionMap("Player").Disable();
+    }
+
+    public void NextLevel()
+        {
+            Pause();
+            StartCoroutine(LoadNextLevel());
+        }
+
+
+    public IEnumerator LoadNextLevel()
+    {
+        var sceneName = SceneManager.GetActiveScene().name;//Get the scene name to compare to other scenes
+        string nextScene;
+        int background;
+        yield return StartCoroutine(GameTimer.TimeToPoints());
+        yield return AttemptsToPoints();
+        yield return new WaitForSecondsRealtime(2f);
+
+        switch (sceneName)
+        {
+            case "PlatformerLevel1Scene": nextScene = "PlatformerLevel2Scene"; background = 0; break;
+            case "PlatformerLevel2Scene": nextScene = "PlatformerLevel3Scene"; background = 1; break;
+            case "PlatformerLevel3Scene": nextScene = "PlatformerLevel4Scene"; background = 1; break;
+            case "PlatformerLevel4Scene": nextScene = "PlatformerLevel5Scene"; background = 1; break;
+            case "PlatformerLevel5Scene": nextScene = "PlatformerLevel1Scene"; background = 0; break;
+            default: nextScene = "TitleScreen"; background = 0; break;
+        }
+
+        //playerScript.updatedPos = new Vector2(0,0.5f);                                                          //Signify spawn to beginning of a new level
+        //player.transform.position = playerScript.updatedPos;                                                    //Move the character to the new spawn
+        //playerBackground.GetComponent<Image>().sprite = backgroundImageScript.ChangeBackground(background);     //Change background to next level
+        //DontDestroyOnLoad(GameObject.Find("Player"));                                                           //Move the player game object to new scene
+        SceneManager.LoadScene(nextScene);                                                                      //Load scene
+    }
+
 
 }

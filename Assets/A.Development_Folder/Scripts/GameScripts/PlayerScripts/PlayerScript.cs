@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public Vector2 updatedPos;
+    public GameManager gameManager;
     public ItemManager itemManager;
 
     void Awake()
@@ -12,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameManager = GameManager.instance;
         itemManager = GameManager.instance.ItemManager;
         updatedPos = new Vector2(0,0.5f);//Signify spawn
     }
@@ -23,20 +25,17 @@ public class PlayerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.M)) CheatCode();//Gives player an assortment of cheats
         if(Input.GetKeyDown(KeyCode.L)) Debug.Log("Mouse position " + Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if(Input.GetKeyDown(KeyCode.T)) TeleportPlayer();//Button to respawn the player
+        if(Input.GetKeyDown(KeyCode.E)) gameManager.NextLevel();//end the level immediately
     }
 
-<<<<<<< HEAD
     public void RespawnPlayer() {
         transform.position = updatedPos;    //Respawn to last position saved
-        }
+        transform.rotation = new Quaternion(0,0,0,0);
+    }
 
     public void TeleportPlayer() {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);   //teleport player to mouse cursor
-        }
-
-=======
-    public void RespawnPlayer(){ transform.position = updatedPos; transform.rotation = new Quaternion(0,0,0,0); }//Respawn to last position saved
->>>>>>> origin/MapLevel2
+    }
 
     public void CheatCode()//Gives the player all weapons at once
     {
