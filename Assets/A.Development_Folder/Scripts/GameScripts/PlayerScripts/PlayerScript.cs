@@ -25,6 +25,7 @@ public class PlayerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.T)) TeleportPlayer();//Button to respawn the player
     }
 
+<<<<<<< HEAD
     public void RespawnPlayer() {
         transform.position = updatedPos;    //Respawn to last position saved
         }
@@ -33,6 +34,9 @@ public class PlayerScript : MonoBehaviour
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);   //teleport player to mouse cursor
         }
 
+=======
+    public void RespawnPlayer(){ transform.position = updatedPos; transform.rotation = new Quaternion(0,0,0,0); }//Respawn to last position saved
+>>>>>>> origin/MapLevel2
 
     public void CheatCode()//Gives the player all weapons at once
     {
