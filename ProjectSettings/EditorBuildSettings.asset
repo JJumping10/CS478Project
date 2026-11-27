@@ -19,9 +19,9 @@ EditorBuildSettings:
     guid: 65722c9e4eb4b304ba7d2487a1263229
   - enabled: 1
     path: Assets/A.Development_Folder/Scenes/GameLevels/PlatformerLevel4Scene.unity
-    guid: ef7f58b21373f924d86c570900d30401
+    guid: 54e1bb1b549fe104ca90cb103ac87fc1
   - enabled: 1
     path: Assets/A.Development_Folder/Scenes/GameLevels/PlatformerLevel5Scene.unity
-    guid: 7674e246e873b624e9f524b138a02ab7
+    guid: ba3937dac4d7fb846ba4609c0cbc2919
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
